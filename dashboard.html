@@ -5,7 +5,6 @@
   <title>Dashboard | Herbs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -17,7 +16,6 @@
       height: 100vh;
     }
 
-    /* Sidebar */
     .sidebar {
       width: 220px;
       background: #4338ca;
@@ -53,7 +51,6 @@
       text-align: center;
     }
 
-    /* Main */
     .main {
       flex: 1;
       padding: 30px;
@@ -76,78 +73,63 @@
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-
-    ul {
-      padding-left: 20px;
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Herbs 🌿</h2>
+<div class="sidebar">
+  <h2>Herbs 🌿</h2>
+  <div class="menu">
+    <a>📊 วิเคราะห์สูตร</a>
+    <a>🧪 เลือกสรรพคุณ</a>
+    <a>📁 สูตรของฉัน</a>
+    <a class="logout" onclick="logout()">ออกจากระบบ</a>
+  </div>
+</div>
 
-    <div class="menu">
-      <a>📊 วิเคราะห์สูตร</a>
-      <a>🧪 เลือกสรรพคุณ</a>
-      <a>📁 สูตรของฉัน</a>
-      <a class="logout" onclick="logout()">ออกจากระบบ</a>
+<div class="main">
+  <div class="header">ภาพรวมการวิเคราะห์สูตร</div>
+
+  <div class="content">
+    <div class="card">
+      <h3>รายการสูตร</h3>
+      <ul>
+        <li>สูตร A</li>
+        <li>สูตร B</li>
+        <li>สูตร C</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>อัตราส่วนส่วนผสม</h3>
+      <canvas id="myChart"></canvas>
     </div>
   </div>
+</div>
 
-  <!-- Main Content -->
-  <div class="main">
-    <div class="header">
-      ภาพรวมการวิเคราะห์สูตร
-    </div>
+<script>
+  // ป้องกันเข้า dashboard ถ้าไม่ login
+  if (!localStorage.getItem("currentUser")) {
+    window.location.href = "index.html";
+  }
 
-    <div class="content">
-      <!-- List -->
-      <div class="card">
-        <h3>รายการสูตร</h3>
-        <ul>
-          <li>สูตร A</li>
-          <li>สูตร B</li>
-          <li>สูตร C</li>
-        </ul>
-      </div>
+  function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+  }
 
-      <!-- Chart -->
-      <div class="card">
-        <h3>อัตราส่วนส่วนผสม</h3>
-        <canvas id="myChart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    /* ====== ป้องกันเข้า Dashboard โดยไม่ล็อกอิน ====== */
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
-      window.location.href = "index.html";
+  new Chart(document.getElementById('myChart'), {
+    type: 'pie',
+    data: {
+      labels: ['สาร A', 'สาร B', 'สาร C'],
+      datasets: [{
+        data: [40, 35, 25],
+        backgroundColor: ['#6366f1', '#ec4899', '#22c55e']
+      }]
     }
-
-    /* ====== Logout ====== */
-    function logout() {
-      localStorage.removeItem("currentUser");
-      window.location.href = "index.html";
-    }
-
-    /* ====== Chart ====== */
-    const ctx = document.getElementById('myChart');
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['สาร A', 'สาร B', 'สาร C'],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ['#6366f1', '#ec4899', '#22c55e']
-        }]
-      }
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
