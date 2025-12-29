@@ -118,19 +118,18 @@
     </div>
   </div>
 
-  <script>
-    const ctx = document.getElementById('myChart');
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['สาร A', 'สาร B', 'สาร C'],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ['#6366f1', '#ec4899', '#22c55e']
-        }]
-      }
-    });
-  </script>
+ <script>
+  const currentUser = localStorage.getItem("currentUser");
+  if (!currentUser) {
+    window.location.href = "index.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+  }
+</script>
 
 </body>
+
 </html>
