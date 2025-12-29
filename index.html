@@ -2,14 +2,8 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>Herbs | ระบบวิเคราะห์สูตร</title>
+  <title>Herbs | Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ไอคอนหน้าเว็บ -->
-  <link rel="icon" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <text y='.9em' font-size='90'>🌿</text>
-  </svg>">
 
   <style>
     body {
@@ -22,8 +16,8 @@
       align-items: center;
     }
 
-    .login-box {
-      background: #ffffff;
+    .box {
+      background: #fff;
       width: 360px;
       padding: 40px 30px;
       border-radius: 20px;
@@ -33,17 +27,6 @@
 
     h1 {
       color: #15803d;
-      margin-bottom: 5px;
-      font-size: 34px;
-    }
-
-    h1 span {
-      font-size: 30px;
-    }
-
-    p {
-      color: #555;
-      margin-bottom: 25px;
     }
 
     input {
@@ -52,7 +35,6 @@
       margin-bottom: 15px;
       border-radius: 12px;
       border: 1px solid #ccc;
-      font-size: 16px;
     }
 
     button {
@@ -61,52 +43,54 @@
       border: none;
       border-radius: 12px;
       font-size: 18px;
-      cursor: pointer;
       background: #22c55e;
       color: white;
+      cursor: pointer;
     }
 
-    button:hover {
-      background: #16a34a;
-    }
-
-    .link {
+    a {
+      display: block;
       margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .link a {
       color: #16a34a;
       text-decoration: none;
-      margin: 0 5px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="login-box">
-    <h1>Herbs <span>🌿</span></h1>
-    <p>ระบบวิเคราะห์สูตรสมุนไพร</p>
+<div class="box">
+  <h1>Herbs 🌿</h1>
+  <p>ระบบวิเคราะห์สูตรสมุนไพร</p>
 
-    <input type="text" placeholder="ชื่อผู้ใช้">
-    <input type="password" placeholder="รหัสผ่าน">
+  <input type="text" id="user" placeholder="ชื่อผู้ใช้">
+  <input type="password" id="pass" placeholder="รหัสผ่าน">
 
-    <button onclick="login()">เข้าสู่ระบบ</button>
+  <button onclick="login()">เข้าสู่ระบบ</button>
 
-    <div class="link">
-    <a href="register.html">สมัครสมาชิก</a>
-    </div>
-  </div>
+  <a href="register.html">สมัครสมาชิก</a>
+</div>
 
-  <script>
-    function login() {
-      // ล็อกอินสำเร็จ → ไปหน้าเมนูหลัก
-      window.location.href = "profile.html";
-    }
-  </script>
+<script>
+function login() {
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const found = users.find(u => u.user === user && u.pass === pass);
+
+  if (!found) {
+    alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+    return;
+  }
+
+  // ✅ สำคัญที่สุด
+  localStorage.setItem("currentUser", user);
+
+  window.location.href = "dashboard.html";
+}
+</script>
 
 </body>
 </html>
-
-
