@@ -91,7 +91,7 @@
       <a href="#">📊 วิเคราะห์สูตร</a>
       <a href="#">🧪 เลือกสรรพคุณ</a>
       <a href="#">📁 สูตรของฉัน</a>
-      <a class="logout" href="login.html">ออกจากระบบ</a>
+      <a class="logout" href="#" onclick="logout()">ออกจากระบบ</a>
     </div>
   </div>
 
@@ -119,18 +119,28 @@
   </div>
 
   <script>
-    const ctx = document.getElementById('myChart');
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['สาร A', 'สาร B', 'สาร C'],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ['#6366f1', '#ec4899', '#22c55e']
-        }]
-      }
-    });
-  </script>
+  function logout() {
+    // ถ้ามีเก็บสถานะล็อกอินไว้ สามารถลบได้
+    localStorage.removeItem("currentUser");
+
+    // กลับไปหน้า Login (index.html)
+    window.location.href = "index.html";
+  }
+
+  const ctx = document.getElementById('myChart');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['สาร A', 'สาร B', 'สาร C'],
+      datasets: [{
+        data: [40, 35, 25],
+        backgroundColor: ['#6366f1', '#ec4899', '#22c55e']
+      }]
+    }
+  });
+</script>
+
 
 </body>
+
 </html>
